@@ -1,28 +1,38 @@
 package ds.stack;
 
-public class Stack {
+import java.util.EmptyStackException;
+
+public class Stack<E> {
     private int maxSize;
-    private long[] stackArray;
+    private E[] stackArray;
     private int top;
 
     public Stack(int size) {
         this.maxSize = size;
-        this.stackArray = new long[maxSize];
+        this.stackArray = (E[]) new Object[size];
         this.top = -1;
     }
 
-    public void push(long j) {
-        top++;
-        stackArray[top] = j;
+    public void push(E j) {
+        if(isFull()) {
+            throw new RuntimeException("This stack is full!");
+        } else {
+            top++;
+            stackArray[top] = j;
+        }
     }
 
-    public long pop() {
-        int old_top = top;
-        top--;
-        return stackArray[old_top];
+    public E pop() {
+        if(isEmpty()) {
+            throw new RuntimeException("This stack is empty!");
+        } else {
+            int old_top = top;
+            top--;
+            return stackArray[old_top];
+        }
     }
 
-    public long peak() {
+    public E peak() {
         return stackArray[top];
     }
 
